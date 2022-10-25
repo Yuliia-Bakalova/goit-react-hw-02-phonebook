@@ -13,10 +13,8 @@ export class ContactForm extends Component {
     };
 
     handlerChange = evt => {
-       
-        const { name, value } = evt.currentTarget;
+       this.setState({ [evt.currentTarget.name]: evt.currentTarget.value });
 
-        this.setState({ [name]: value });
     };
 
     handlerSubmit = evt => {

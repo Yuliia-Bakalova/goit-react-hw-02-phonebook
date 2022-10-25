@@ -27,12 +27,12 @@ export const Title = styled.h1`
  color: #363333;
 `;
 
-export const ContactsTitle = styled.h2`
-  display: flex;
-  align-items: center;
-justify-content: center;
-  font-size: 30px;
-  margin-bottom: 15px;
-  color: #38384b;
+// export const ContactsTitle = styled.h2`
+//   display: flex;
+//   align-items: center;
+// justify-content: center;
+//   font-size: 30px;
+//   margin-bottom: 15px;
+//   color: #38384b;
 
-`;
+// `;

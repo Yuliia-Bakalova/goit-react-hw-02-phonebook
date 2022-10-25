@@ -3,7 +3,8 @@ import { nanoid } from 'nanoid';
 import { ContactList } from './ContactList/ContactList';
 import { ContactForm } from './ContactForm/ContactForm';
 import { Filter } from './Filter/Filter';
-import { Container, Title, ContactsTitle } from './App.styled';
+import { Container, Title } from './App.styled';
+import { Notify } from 'notiflix/build/notiflix-notify-aio';
 
 class App extends Component {
     state = {
@@ -16,14 +17,19 @@ class App extends Component {
         ],
     };
 
-    formSubmitHemdler = ({ name, number }) => {
-        const newContact = { id: nanoid(), name: name, number: number };
+    formSubmitHemdler = contact => {
+        contact.id = nanoid();
+        const names = this.state.contacts.map(item => item.name)  
+        
+       if (names.includes(contact.name)) {
+      return Notify.warning(`${contact.name} is already in contacts`, {
+        position: 'center-top',
+      });
+    }
+    this.setState(({ contacts }) => ({
+      contacts: [...contacts, contact],
+    }));
 
-        this.state.contacts.find(contact => contact.name === name)
-            ? window.alert(`${name} is alredy in contacts.`)
-            : this.setState(prevState => {
-                  return { contacts: [...prevState.contacts, newContact] };
-              });
     };
 
     handlerChangeFilter = evt => {
@@ -49,7 +55,7 @@ class App extends Component {
                 <Title> Phonebook </Title>
 
                 <ContactForm onSubmit={this.formSubmitHemdler} />
-                <ContactsTitle>Contacts</ContactsTitle>
+                <Title>Contacts</Title>
                 <Filter onChange={this.handlerChangeFilter} />
                 <ContactList contacts={filterContacts} onClick={this.deleteContact} />
             </Container>
